@@ -13,8 +13,8 @@ import time
 window = tk.Tk()
 window.title("Attendance Management System using Face Recognition")
 
-window.geometry('1280x720')
-window.configure(background='grey80')
+window.geometry('1280x7200')
+window.configure(background='black')
 
 # GUI for manually fill attendance
 # Manual Attendance
@@ -23,7 +23,7 @@ def manually_fill():
     global sb
     sb = tk.Tk()
     #Input Subject Name
-    sb.title("Enter subject name...")
+    sb.title("Enter course name")
     sb.geometry('580x320')
     sb.configure(background='grey80')
 
@@ -33,7 +33,7 @@ def manually_fill():
             ec.destroy()
         global ec
         ec = tk.Tk()
-        ec.geometry('300x100')
+        ec.geometry('300x200')
         
         ec.title('Warning!!')
         ec.configure(background='snow')
@@ -63,7 +63,7 @@ def manually_fill():
         try:
             global cursor
             connection = pymysql.connect(
-                host='localhost', user='root', password='', db='manually_fill_attendance')
+                host='localhost', user='root', password='Sundari@04', db='manually_fill_attendance')
             cursor = connection.cursor()
         except Exception as e:
             print(e)
