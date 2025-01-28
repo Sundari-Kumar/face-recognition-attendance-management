@@ -62,8 +62,9 @@ def manually_fill():
         # Connect to the database
         try:
             global cursor
-            connection = pymysql.connect(
-                host='localhost', user='root', password='Sundari@04', db='manually_fill_attendance')
+            db_password = os.getenv('DB_PASSWORD')  # Use environment variable
+            connection = pymysql.connect(host='localhost', user='root', password=db_password, db='manually_fill_attendance')
+
             cursor = connection.cursor()
         except Exception as e:
             print(e)
@@ -79,7 +80,8 @@ def manually_fill():
                         """
 
         try:
-            cursor.execute(sql)  # for create a table
+            with connection.cursor() as cursor:
+                cursor.execute(sql)  # for create a table
         except Exception as ex:
             print(ex)  #
 
@@ -165,7 +167,10 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name = 'C:/Users/Pragya singh/PycharmProjects/Attendace_management_system/Attendance/Manually Attendance/'+DB_table_name+'.csv'
+                output_dir = 'E:/modified p2/Attendance'
+                os.makedirs(output_dir, exist_ok=True)  # Ensure directory exists
+                csv_name = os.path.join(output_dir, DB_table_name + '.csv')
+
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow(
@@ -220,8 +225,9 @@ def manually_fill():
 
             def attf():
                 import subprocess
-                subprocess.Popen(
-                    r'explorer /select,"C:\Users\Pragya Singh\PycharD:\Company\Edunet Foundation - Pune\Project\OneDrive_2024-10-01\Attendance Management System using Face Recognition\AttendancemProjects\Attendace_management_system\Attendance\Manually Attendance\-------Check atttendance-------"')
+                attendance_dir = os.path.abspath('E:/modified p2/Attendance')
+                subprocess.Popen(r'explorer /select,"{attendance_dir}"')
+
 
             attf = tk.Button(MFW,  text="Check Sheets", command=attf, fg="white", bg="black",
                              width=12, height=1, activebackground="white", font=('times', 14, ' bold '))
@@ -485,7 +491,7 @@ def subjectchoose():
                 root = tkinter.Tk()
                 root.title("Attendance of " + Subject)
                 root.configure(background='grey80')
-                cs = 'C:/Users/Pragya Singh/PycharmProjects/Attendace_management_system/' + fileName
+                cs = 'E:/modified p2/' + fileName
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -513,8 +519,9 @@ def subjectchoose():
 
     def Attf():
         import subprocess
-        subprocess.Popen(
-            r'explorer /select,"C:\Users\Pragya Singh\PycharmProjects\Attendace_management_system\Attendance\-------Check atttendance-------"')
+        attendance_dir = os.path.abspath('E:/modified p2/Attendance')  # Use dynamic path
+        subprocess.Popen(r'explorer /select,"{}"'.format(attendance_dir))
+
 
     attf = tk.Button(windo,  text="Check Sheets", command=Attf, fg="white", bg="black",
                      width=12, height=1, activebackground="white", font=('times', 14, ' bold '))
@@ -554,7 +561,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='grey80')
 
-                cs = 'C:/Users/Pragya Singh/PycharmProjects/Attendace_management_system/StudentDetails/StudentDetails.csv'
+                cs = 'E:/modified p2/StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
