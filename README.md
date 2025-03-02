@@ -110,7 +110,5 @@ Special thanks to the following:
 
 ---
 
-For any questions or issues, feel free to contact **[your email]**.
+For any questions or issues, feel free to contact **sundari.k31082004@gmail.com**.
 =======
-# face-recognition-attendance-management
->>>>>>> c549550af2e9588414359b5e5ae093c6611a0caf
